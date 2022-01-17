@@ -2,6 +2,7 @@ import { Button, Container, Stack } from "react-bootstrap"
 import AddBudgetModal from "./components/AddBudgetModal"
 import AddExpenseModal from "./components/AddExpenseModal"
 import BudgetCard from "./components/BudgetCard"
+import UncategorizedBudgetCard from "./components/UncategorizedBudgetCard"
 import { useState } from "react"
 import { useBudgets } from "./contexts/BudgetsContext"
 
@@ -31,19 +32,18 @@ function App() {
                     alignItems: "flex-start",
                 }}
                 >
-                    {
-                        budgets.map(budget => {
-                            const amount = getBudgetExpenses(budget.id).reduce((p, c) => p + c.amount, 0)
+                    {budgets.map(budget => {
+                        const amount = getBudgetExpenses(budget.id).reduce((p, c) => p + c.amount, 0)
 
-                            return <BudgetCard
-                                key={budget.id}
-                                name={budget.name}
-                                amount={amount}
-                                max={budget.max}
-                                onAddExpenseClick={() => openAddExpenseModal(budget.id)}
-                            ></BudgetCard>
-                        })
-                    }
+                        return <BudgetCard
+                            key={budget.id}
+                            name={budget.name}
+                            amount={amount}
+                            max={budget.max}
+                            onAddExpenseClick={() => openAddExpenseModal(budget.id)}
+                        ></BudgetCard>
+                    })}
+                    <UncategorizedBudgetCard />
 
                 </div>
             </Container>
